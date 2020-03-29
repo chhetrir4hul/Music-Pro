@@ -10,4 +10,6 @@
     <string name="txt_done">Done</string>
     <string name="txt_warning">Warning</string>
     <string name="txt_incomplete_venue_details">Venue details are incomplete</string>
+    <string name="txt_confirm">Confirm</string>
+    <string name="txt_delete_velue">Delete venue?</string>
 </resources>

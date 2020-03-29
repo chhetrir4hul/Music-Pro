@@ -95,8 +95,8 @@ public class NewVenueFragment extends Fragment {
 
     private void deleteVenue() {
         final AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-        builder.setMessage(R.string.txt_incomplete_venue_details)
-                .setTitle(R.string.txt_warning)
+        builder.setMessage(R.string.txt_delete_velue)
+                .setTitle(R.string.txt_confirm)
                 .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
