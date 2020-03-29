@@ -1,3 +1,13 @@
 <resources>
-    <string name="app_name">Music Pro</string>
+    <string name="app_name">MusicPro</string>
+    <string name="txt_venues">Venues</string>
+    <string name="txt_map">Map</string>
+    <string name="txt_new_venue">New Venue</string>
+    <string name="txt_venue_name">Venue name</string>
+    <string name="txt_opening_time">Opening Time</string>
+    <string name="txt_venue_address">Venue Address</string>
+    <string name="txt_delete">Delete</string>
+    <string name="txt_done">Done</string>
+    <string name="txt_warning">Warning</string>
+    <string name="txt_incomplete_venue_details">Venue details are incomplete</string>
 </resources>
