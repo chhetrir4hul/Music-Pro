@@ -6,6 +6,9 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static android.database.sqlite.SQLiteDatabase.CONFLICT_REPLACE;
 
 public class DatabaseHelper extends SQLiteOpenHelper {
@@ -50,9 +53,19 @@ public class DatabaseHelper extends SQLiteOpenHelper {
         return id;
     }
 
-    public Cursor fetchAllVenues() {
+    public List<Venue> fetchAllVenues() {
         SQLiteDatabase db = this.getReadableDatabase();
-        return db.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME, null);
+        Cursor cursor = db.rawQuery("SELECT * FROM " + DatabaseHelper.TABLE_NAME, null);
+        List<Venue> venueList = new ArrayList<>();
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                venueList.add(new Venue(cursor.getInt(0), cursor.getString(1), cursor.getString(2), cursor.getString(3)));
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+        return venueList;
     }
 
     public Venue fetchVenueById(int id) {

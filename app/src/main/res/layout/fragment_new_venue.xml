@@ -29,7 +29,7 @@
         android:layout_marginTop="8dp"
         android:background="@color/colorPrimary"
         android:gravity="top|start"
-        android:inputType="text"
+        android:inputType="textMultiLine"
         android:padding="8dp"
         android:textColor="@color/white" />
 

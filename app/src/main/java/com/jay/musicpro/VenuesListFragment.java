@@ -1,23 +1,26 @@
 package com.jay.musicpro;
 
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.SimpleCursorAdapter;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class VenuesListFragment extends Fragment {
 
     private ListView listView;
     private DatabaseHelper databaseHelper;
+    private List<Venue> venueList = new ArrayList<>();
+    private VenueListAdapter venueListAdapter;
 
     @Nullable
     @Override
@@ -28,26 +31,27 @@ public class VenuesListFragment extends Fragment {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        if (databaseHelper == null)
-            databaseHelper = new DatabaseHelper(getActivity());
-
-        final Cursor cursor = databaseHelper.fetchAllVenues();
-        final String[] from = new String[]{DatabaseHelper.NAME, DatabaseHelper.ADDRESS};
-        final int[] to = new int[]{R.id.name, R.id.address};
-
-        SimpleCursorAdapter simpleCursorAdapter = new SimpleCursorAdapter(getActivity(), R.layout.item_venue, cursor, from, to, 0);
-        simpleCursorAdapter.notifyDataSetChanged();
-        listView.setAdapter(simpleCursorAdapter);
-
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        venueListAdapter = new VenueListAdapter(getActivity(), venueList);
+        listView.setAdapter(venueListAdapter);
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(getActivity(), NewVenueActivity.class);
-                intent.putExtra("ID", cursor.getInt(0));
+                intent.putExtra("ID", venueList.get(position).getId());
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (databaseHelper == null)
+            databaseHelper = new DatabaseHelper(getActivity());
+        venueList.clear();
+        venueList.addAll(databaseHelper.fetchAllVenues());
+        venueListAdapter.notifyDataSetChanged();
     }
 }
